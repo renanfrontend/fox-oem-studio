@@ -1,0 +1,175 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import '@fontsource-variable/archivo/wdth.css';
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Fox OEM+ Studio: tema único (dark).
+ * Base grafite (plásticos internos do Fox), tinta prata como acento
+ * e cor saturada só para estado (status), como as luzes do painel.
+ */
+:root {
+  color-scheme: dark;
+  --radius: 0.875rem;
+
+  --background: #101215;
+  --foreground: #e6e9ed;
+  --card: #171a1e;
+  --card-foreground: #e6e9ed;
+  --popover: #1c2025;
+  --popover-foreground: #e6e9ed;
+  --primary: #d9dee5;
+  --primary-foreground: #111316;
+  --secondary: #23282e;
+  --secondary-foreground: #e6e9ed;
+  --muted: #1d2126;
+  --muted-foreground: #959da8;
+  --accent: #272c33;
+  --accent-foreground: #f1f3f5;
+  --destructive: #dc3c3d;
+  --border: #2b3138;
+  --input: #323840;
+  --ring: #7fa7f5;
+
+  /* Estados (reservados: nunca usar como cor de série) */
+  --status-good: #0aac23;
+  --status-warning: #fbb315;
+  --status-serious: #f18a59;
+  --status-critical: #dc3c3d;
+
+  /* Fluxo das tarefas do roadmap (validado p/ daltonismo no fundo do card) */
+  --flow-pendente: #6b737e;
+  --flow-cotando: #d28e05;
+  --flow-agendado: #338ced;
+  --flow-concluido: #0aac23;
+
+  /* Medidor da verba */
+  --budget-spent: #d9dee5;
+  --budget-free: #5e6773;
+  --budget-reserve: #338ced;
+  --budget-breach: #dc3c3d;
+
+  /* Ilustrações de referência (placeholders do comparador) */
+  --illus-paint-top: #eef1f4;
+  --illus-paint-bottom: #8b94a0;
+  --illus-trim: #1b1f24;
+  --illus-glass: #2d343d;
+  --illus-glass-tint: #0f1317;
+  --illus-tire: #0c0e11;
+  --illus-line: #59626e;
+
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@theme inline {
+  --font-sans: 'Archivo Variable', 'Archivo', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-status-good: var(--status-good);
+  --color-status-warning: var(--status-warning);
+  --color-status-serious: var(--status-serious);
+  --color-status-critical: var(--status-critical);
+
+  --color-flow-pendente: var(--flow-pendente);
+  --color-flow-cotando: var(--flow-cotando);
+  --color-flow-agendado: var(--flow-agendado);
+  --color-flow-concluido: var(--flow-concluido);
+
+  --color-budget-spent: var(--budget-spent);
+  --color-budget-free: var(--budget-free);
+  --color-budget-reserve: var(--budget-reserve);
+  --color-budget-breach: var(--budget-breach);
+
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 12px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+    font-feature-settings: 'ss01' 0;
+    min-height: 100dvh;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--primary) 35%, transparent);
+  }
+}
+
+@layer utilities {
+  /* Títulos em largura expandida: o vocabulário dos emblemas automotivos. */
+  .type-expanded {
+    font-stretch: 125%;
+    letter-spacing: -0.012em;
+  }
+
+  .type-semi-expanded {
+    font-stretch: 112%;
+    letter-spacing: -0.006em;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .pb-safe {
+    padding-bottom: max(var(--safe-bottom), 0.5rem);
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Fundo de estúdio para as fotos e ilustrações do comparador. */
+  .studio-backdrop {
+    background:
+      radial-gradient(120% 90% at 50% 18%, #262c34 0%, #171b20 52%, #0d0f12 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
